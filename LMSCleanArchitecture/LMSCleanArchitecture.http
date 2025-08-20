@@ -1,0 +1,6 @@
+@LMSCleanArchitecture_HostAddress = http://localhost:5063
+
+GET {{LMSCleanArchitecture_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
