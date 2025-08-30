@@ -1,13 +1,15 @@
-﻿using LMSCleanArchitecture.Core.Entities;
+﻿using LMSCleanArchitecrure.Application.Contracts.Persistance;
+using LMSCleanArchitecture.Core.Entities;
 using LMSCleanArchitecture.Infrastructure.Persisitense;
-using LMSCleanArchitecrure.Application.Contracts.Persistance;
 using Microsoft.EntityFrameworkCore;
 
-namespace LMSCleanArchitecture.Infrastructure.Repositories
+
+namespace LMSCleanArchitecrure.Infrastructure.Repositories
 {
     public class InstructorRepository : IInstructorRepository
     {
         private readonly LMSDbContext context;
+
         public InstructorRepository(LMSDbContext context)
         {
             this.context = context;
@@ -32,7 +34,8 @@ namespace LMSCleanArchitecture.Infrastructure.Repositories
         }
 
         public async Task<Instructor> DeleteInstructorAsync(int id)
-        {   var instructor = await GetInstructorByIdAsync(id);
+        {
+            var instructor = await GetInstructorByIdAsync(id);
             if (instructor != null)
             {
                 context.Instructors.Remove(instructor);
@@ -61,9 +64,8 @@ namespace LMSCleanArchitecture.Infrastructure.Repositories
 
         public async Task<int> AddInstructorAsync(Instructor instructor)
         {
-            
+
             context.Instructors.Add(instructor);
-            
             return instructor.Id;
         }
 

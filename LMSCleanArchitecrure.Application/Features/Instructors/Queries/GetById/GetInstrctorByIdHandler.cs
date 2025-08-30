@@ -17,11 +17,12 @@ namespace LMSCleanArchitecrure.Application.Features.Instructors.Queries.GetById
         public async Task<GetByIdInstructorDTO> Handle(GetInstructorByIdQuery request, CancellationToken cancellationToken)
         {
             if (request.Id <= 0)
-                throw new ArgumentException("Instructor ID must be greater than zero.", nameof(request.Id));
+                throw new ArgumentException("Instructor Id must be provided and greater than zero.", nameof(request.Id));
 
             var instructor = await instructorRepository.GetInstructorByIdAsync(request.Id);
             if (instructor == null)
-                throw new KeyNotFoundException($"Instructor with ID {request.Id} not found.");
+                throw new KeyNotFoundException($"Instructor with Id {request.Id} not found.");
+
             return new GetByIdInstructorDTO
             {
                 Id = instructor.Id,

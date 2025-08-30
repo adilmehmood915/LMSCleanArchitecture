@@ -7,8 +7,10 @@ namespace LMSCleanArchitecrure.Application.Contracts.Persistance
         Task<IReadOnlyList<Student>> GetAllStudentsAsync();
         Task<Student> GetStudentByIdAsync(int id);
         Task<int> AddStudentAsync(Student student);
-        Task<Student> DeleteStudentAsync(int id);
+        Task<int> DeleteStudentAsync(int id);
         Task<bool> UpdateStudentAsync(Student student, CancellationToken cancellationToken);
         Task SaveChangesAsync();
+        Task<bool> AssignCourseAsync(int studentId, int courseId, CancellationToken cancellationToken);
+
     }
 }

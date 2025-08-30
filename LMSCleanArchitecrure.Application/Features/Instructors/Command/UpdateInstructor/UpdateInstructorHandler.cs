@@ -15,23 +15,23 @@ namespace LMSCleanArchitecrure.Application.Features.Instructors.Command.UpdateIn
 
         public async Task<bool> Handle(UpdateInstructorCommand request, CancellationToken cancellationToken)
         {
+            if (request.Id <= 0)
+                throw new ArgumentException("Instructor Id must be provided and greater than zero.", nameof(request.Id));
+
+            // Use correct repository method and parameter type
             var instructor = await instructorRepository.GetInstructorByIdAsync(request.Id);
             if (instructor == null)
             {
-                throw new KeyNotFoundException($"Instructor with ID {request.Id} not found.");
+                throw new KeyNotFoundException($"Instructor with Id {request.Id} not found.");
             }
 
-            var updatedInstructor = new Instructor
-            {
-                Id = request.Id,
-                FullName = request.InstructorDTO.FullName,
-                Email = request.InstructorDTO.Email,
-            };
+            instructor.FullName = request.InstructorDTO.FullName;
+            instructor.Email = request.InstructorDTO.Email;
 
-            var result = await instructorRepository.UpdateInstructorAsync(updatedInstructor, cancellationToken);
+            var result = await instructorRepository.UpdateInstructorAsync(instructor, cancellationToken);
             if (!result)
             {
-                throw new Exception($"Failed to update instructor with ID {request.Id}.");
+                throw new Exception($"Failed to update instructor with Id {request.Id}.");
             }
             await instructorRepository.SaveChangesAsync();
             return true;

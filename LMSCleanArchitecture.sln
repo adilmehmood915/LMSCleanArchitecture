@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSCleanArchitecture", "LMSCleanArchitecture\LMSCleanArchitecture.csproj", "{174B4D30-C92F-4F19-A89F-DA8D29B6AC97}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5191835B-3D15-4039-923A-7182CCC8D75A} = {5191835B-3D15-4039-923A-7182CCC8D75A}
+		{EEC97513-A154-47DB-9912-6361A8736FD4} = {EEC97513-A154-47DB-9912-6361A8736FD4}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMSCleanArchitecrure.Application", "LMSCleanArchitecrure.Application\LMSCleanArchitecrure.Application.csproj", "{DB75D3E6-8920-474B-AD5F-C870AEAF3803}"

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace LMSCleanArchitecrure.Application.Features.Student.Command.CreateStudent
 {
-    internal class CreateStudentHandle : IRequestHandler<CreateStudentCommand, int>
+    public class CreateStudentHandle : IRequestHandler<CreateStudentCommand, int>
     {
         private readonly IStudentRepository studentRepository;
         public CreateStudentHandle(IStudentRepository studentRepository)
@@ -25,7 +25,8 @@ namespace LMSCleanArchitecrure.Application.Features.Student.Command.CreateStuden
                 Address = request.StudentDTO.Address,
                 City = request.StudentDTO.City,
                 State = request.StudentDTO.State,
-                ZipCode = request.StudentDTO.ZipCode
+                ZipCode = request.StudentDTO.ZipCode,
+                //UserId = request.StudentDTO.UserId
             };
             if (students.RollNumber < 1)
                 throw new ArgumentException("Roll number must be at least 1.");

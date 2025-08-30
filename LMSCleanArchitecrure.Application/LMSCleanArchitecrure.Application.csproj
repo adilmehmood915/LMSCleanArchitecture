@@ -9,14 +9,11 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
     <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LMSCleanArchitecture.Core\LMSCleanArchitecture.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Student\Queries\" />
   </ItemGroup>
 
 </Project>

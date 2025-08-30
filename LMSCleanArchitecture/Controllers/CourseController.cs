@@ -1,70 +1,77 @@
 ﻿using LMSCleanArchitecrure.Application.DTO.Course;
 using LMSCleanArchitecrure.Application.Features.Command.Course.CreateCourse;
-using LMSCleanArchitecrure.Application.Features.Course.Command.AssignInstructor;
 using LMSCleanArchitecrure.Application.Features.Course.Command.DeleteCourse;
 using LMSCleanArchitecrure.Application.Features.Course.Queries.GetAllCourses;
 using LMSCleanArchitecrure.Application.Features.Course.Queries.GetCourseById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LMSCleanArchitecture.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+    [Authorize]
     public class CourseController : ControllerBase
     {
-        private readonly IMediator mediator;
+        private readonly IMediator _mediator;
         public CourseController(IMediator mediator)
         {
-            this.mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCourse([FromBody] CourseResponseDTO dto)
+        [Authorize (Roles = "Admin")]
+        public async Task<IActionResult> CreateCourse([FromBody] CreateCourseDTO dto)
         {
-            var command = new CreateCourseCommand(dto); 
-            var courseId = await mediator.Send(command);
-            return Ok(new { id = courseId });
+            var command = new CreateCourseCommand(dto);
+            var result = await _mediator.Send(command);
+            return Ok(result);
         }
 
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteCourse(int id)
+        {
+            var command = new DeleteCourseCommand(id);
+            var result = await _mediator.Send(command);
+            if (!result)
+                return NotFound();
+            return Ok();
+        }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllCoursesAsync()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllCourses()
         {
-            var result = await mediator.Send(new GetAllCoursesQuery());
-            return Ok(result);
+            var query = new GetAllCoursesQuery();
+            var courses = await _mediator.Send(query);
+            return Ok(courses);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCourseByIdAsync(int id)
+        [Authorize (Roles = "Admin")]
+        public async Task<IActionResult> GetCourseById(int id)
         {
-            var result = await mediator.Send(new GetCourseByIdQuery(id));
-            return Ok(result);
+            var query = new GetCourseByIdQuery(id);
+            var course = await _mediator.Send(query);
+            if (course == null)
+                return NotFound();
+            return Ok(course);
         }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCourse(int id, [FromBody] UpdateCourseDTO dto)
+        [HttpPost("{id}")]
+        [Authorize (Roles = "Admin")]
+        public async Task<IActionResult> UpdateCourseAsync(int id , UpdateCourseDTO dto)
         {
             var command = new UpdateCourseCommand(id, dto);
-            var result = await mediator.Send(command);
-            return Ok(result);
-        }
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCourseAsync(int id)
-        {
-            var command = new DeleteCourseCommand(id);
-            var result = await mediator.Send(command);
-            if (!result)
+            var course = await _mediator.Send(command);
+            if (course == null)
             {
-                return NotFound($"Course with ID {id} not found.");
+                return NotFound();
             }
-            return NoContent();
-        }
-        [HttpPost("{courseId:int}/instructors/{instructorId:int}")]
-        public async Task<IActionResult> AssignInstructorToCourse(int courseId, int instructorId)
-        {
-            var ok = await mediator.Send(new AssignInstructorToCourseCommand(courseId, instructorId));
-            return ok ? Ok() : NotFound();
+            return Ok(course.Id);
+
         }
     }
+
 }

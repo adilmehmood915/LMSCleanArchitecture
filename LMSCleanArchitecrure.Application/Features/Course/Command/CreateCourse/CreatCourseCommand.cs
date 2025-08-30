@@ -5,15 +5,11 @@ namespace LMSCleanArchitecrure.Application.Features.Command.Course.CreateCourse
 {
     public class CreateCourseCommand : IRequest<int>
     {
-        public CourseResponseDTO CourseDto { get; }
+        public CreateCourseDTO CourseDto { get; }
 
-        public CreateCourseCommand(CourseResponseDTO courseDto)
+        public CreateCourseCommand(CreateCourseDTO courseDto)
         {
             CourseDto = courseDto;
-        }
-
-        public CreateCourseCommand(CreateStudentDTO dto)
-        {
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace LMSCleanArchitecrure.Application.DTO.Student
 {
-    public class CreateStudentDTO
+    public class UpdateStudentDTO
     {
         public string Name { get; set; } = null!;
         public int RollNumber { get; set; }

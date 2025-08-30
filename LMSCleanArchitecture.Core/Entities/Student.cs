@@ -12,7 +12,7 @@
         public string City { get; set; } = null!;
         public string State { get; set; } = null!;
         public string ZipCode { get; set; } = null!;
-
-        public ICollection<Courses> Courses { get; set; } = new List<Courses>();
+        public string? UserId { get; set; }
+        public ICollection<StudentCourse> StudentCourses { get; set; }
     }
 }

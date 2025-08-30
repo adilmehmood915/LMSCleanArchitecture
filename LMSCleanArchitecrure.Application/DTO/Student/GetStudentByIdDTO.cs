@@ -1,6 +1,8 @@
-﻿namespace LMSCleanArchitecrure.Application.DTO.Student
+﻿using LMSCleanArchitecrure.Application.DTO.Course;
+
+namespace LMSCleanArchitecrure.Application.DTO.Student
 {
-    public class CreateStudentDTO
+    public class GetStudentByIdDTO
     {
         public string Name { get; set; } = null!;
         public int RollNumber { get; set; }
@@ -12,5 +14,8 @@
         public string State { get; set; } = null!;
         public string ZipCode { get; set; } = null!;
         //public string UserId { get; set; } = null!;
+
+
+        public List<CourseResponseDTO> Courses { get; set; }
     }
 }

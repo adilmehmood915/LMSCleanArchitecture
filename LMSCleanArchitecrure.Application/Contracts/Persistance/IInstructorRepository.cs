@@ -1,4 +1,5 @@
 ﻿using LMSCleanArchitecture.Core.Entities;
+using System.Threading.Tasks;
 
 namespace LMSCleanArchitecrure.Application.Contracts.Persistance
 {
@@ -11,5 +12,6 @@ namespace LMSCleanArchitecrure.Application.Contracts.Persistance
         Task<bool> UpdateInstructorAsync(Instructor instructor, CancellationToken cancellationToken);
         Task SaveChangesAsync();
         public Task<bool> AssignCourseToInstructorAsync(int instructorId, int courseId, CancellationToken cancellationToken);
+
     }
 }
